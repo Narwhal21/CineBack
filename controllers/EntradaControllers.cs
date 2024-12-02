@@ -62,9 +62,12 @@ namespace CineAPI.Controllers
         }
 
         public static void InicializarDatos()
-        {
-            entradas.Add(new Entrada("2024-11-15", 15.00, 1));
-            entradas.Add(new Entrada("2024-11-16", 12.50, 2));
-        }
+{
+    entradas.Clear(); // Limpiar entradas existentes
+    entradas.Add(new Entrada("2024-12-02", 8.90, 1, "Entrada Normal")); // Incluye Tipo
+    entradas.Add(new Entrada("2024-12-02", 15.90, 2, "Entrada VIP")); // Incluye Tipo
+}
+
+
     }
 }
