@@ -9,8 +9,13 @@ namespace Models
         public string Director { get; set; }
         public string ImagenUrl { get; set; } // URL de la imagen
         public string VideoUrl { get; set; }  // Nueva propiedad para el video
+        public string Sinopsis { get; set; }  // Nueva propiedad para la sinopsis
+        public string Actores { get; set; }  // Nueva propiedad para los actores
+        public string FechaEstreno { get; set; }  // Nueva propiedad para la fecha de estreno
+        public string Genero { get; set; }  // Nueva propiedad para el género
+        public string Clasificacion { get; set; }  // Nueva propiedad para la clasificación
 
-        public PeliculaPrincipal(string titulo, int duracion, string director, string imagenUrl, string videoUrl)
+        public PeliculaPrincipal(string titulo, int duracion, string director, string imagenUrl, string videoUrl, string sinopsis, string actores, string fechaEstreno, string genero, string clasificacion)
         {
             Id = nextId++;
             Titulo = titulo;
@@ -18,6 +23,11 @@ namespace Models
             Director = director;
             ImagenUrl = imagenUrl;
             VideoUrl = videoUrl;
+            Sinopsis = sinopsis;
+            Actores = actores;
+            FechaEstreno = fechaEstreno;
+            Genero = genero;
+            Clasificacion = clasificacion;
 
             if (string.IsNullOrEmpty(titulo) || string.IsNullOrEmpty(director) || string.IsNullOrEmpty(imagenUrl) || string.IsNullOrEmpty(videoUrl))
             {
@@ -32,7 +42,7 @@ namespace Models
 
         public void MostrarDetalles()
         {
-            Console.WriteLine($"Película: {Titulo}, Duración: {Duracion} minutos, Director: {Director}, Imagen: {ImagenUrl}, Video: {VideoUrl}");
+            Console.WriteLine($"Película: {Titulo}, Duración: {Duracion} minutos, Director: {Director}, Imagen: {ImagenUrl}, Video: {VideoUrl}, Sinopsis: {Sinopsis}, Actores: {Actores}, Fecha de Estreno: {FechaEstreno}, Género: {Genero}, Clasificación: {Clasificacion}");
         }
     }
 }
