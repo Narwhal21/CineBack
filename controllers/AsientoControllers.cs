@@ -91,6 +91,35 @@ namespace CineAPI.Controllers
 
             return Ok(new { Message = "Asientos seleccionados actualizados exitosamente." });
         }
+       [HttpPost("seleccionados")]
+public IActionResult ActualizarAsientos([FromBody] List<Asiento> seleccionados)
+{
+    if (seleccionados == null || !seleccionados.Any())
+    {
+        Console.WriteLine("Lista de asientos seleccionados vacía.");
+        return BadRequest(new { Message = "La lista de asientos seleccionados está vacía." });
+    }
+
+    Console.WriteLine("Recibiendo solicitud para actualizar asientos:");
+    foreach (var seleccionado in seleccionados)
+    {
+        Console.WriteLine($"Fila: {seleccionado.Fila}, Número: {seleccionado.Numero}, Estado: {seleccionado.Estado}");
+        var asiento = asientos.FirstOrDefault(a =>
+            a.Numero == seleccionado.Numero && a.Fila == seleccionado.Fila);
+
+        if (asiento != null && asiento.Estado == "Disponible")
+        {
+            asiento.Estado = "Ocupado";
+            Console.WriteLine($"Estado actualizado: Fila {asiento.Fila}, Número {asiento.Numero}, Nuevo Estado: {asiento.Estado}");
+        }
+    }
+
+    return Ok(new { Message = "Asientos actualizados exitosamente." });
+}
+
+
+
+
 
        private static void InicializarDatos()
 {
@@ -187,3 +216,4 @@ namespace CineAPI.Controllers
 }
 }
 }
+
