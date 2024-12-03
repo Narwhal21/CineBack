@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 
 namespace CineAPI.Controllers
 {
@@ -10,6 +13,15 @@ namespace CineAPI.Controllers
     public class EntradaController : ControllerBase
     {
         private static List<Entrada> entradas = new List<Entrada>();
+
+        public EntradaController()
+        {
+            // Inicializar datos si la lista está vacía
+            if (!entradas.Any())
+            {
+                InicializarDatos();
+            }
+        }
 
         [HttpGet]
         public ActionResult<IEnumerable<Entrada>> GetEntradas()
@@ -45,7 +57,7 @@ namespace CineAPI.Controllers
             }
             entrada.Fecha = updatedEntrada.Fecha;
             entrada.Precio = updatedEntrada.Precio;
-            entrada.SalaId = updatedEntrada.SalaId;
+            entrada.Tipo = updatedEntrada.Tipo;
             return NoContent();
         }
 
@@ -62,12 +74,44 @@ namespace CineAPI.Controllers
         }
 
         public static void InicializarDatos()
-{
-    entradas.Clear(); // Limpiar entradas existentes
-    entradas.Add(new Entrada("2024-12-02", 8.90, 1, "Entrada Normal")); // Incluye Tipo
-    entradas.Add(new Entrada("2024-12-02", 15.90, 2, "Entrada VIP")); // Incluye Tipo
-}
+        {
+            entradas.Clear(); // Limpiar entradas existentes
+            entradas.Add(new Entrada("2024-12-02", 8.90, "Entrada Normal")); // Incluye Tipo
+            entradas.Add(new Entrada("2024-12-02", 15.90, "Entrada VIP")); // Incluye Tipo
+        }
+    }
 
+    public class Startup
+    {
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader();
+                    });
+            });
 
+            services.AddControllers();
+        }
+
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseCors("AllowAllOrigins");
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
     }
 }
