@@ -3,24 +3,22 @@ namespace Models
     public class Factura
     {
         public static int NextNumeroPedido = 1;
-        public int NumeroPedido { get; private set; }
+        
+        // Cambié el setter a público para permitir la asignación automática durante la deserialización.
+        public int NumeroPedido { get; set; }
+        
         public string Nombre { get; set; }
         public string Correo { get; set; }
         public string Telefono { get; set; }
         public string Fecha { get; set; }
         public decimal Precio { get; set; }
-
-        // Método para asignar el número de pedido
-        public void AsignarNumeroPedido(int numero)
-        {
-            NumeroPedido = numero;
-        }
+        public string Asiento { get; set; }
 
         // Constructor sin parámetros requerido por el deserializador
         public Factura() { }
 
         // Constructor principal con validaciones
-        public Factura(string nombre, string correo, string telefono, decimal precio, string fecha)
+        public Factura(string nombre, string correo, string telefono, decimal precio, string fecha, string asiento)
         {
             ValidarDatos(nombre, correo, precio);
 
@@ -30,6 +28,7 @@ namespace Models
             Telefono = telefono;
             Fecha = fecha;
             Precio = precio;
+            Asiento = asiento;
         }
 
         // Método de validación

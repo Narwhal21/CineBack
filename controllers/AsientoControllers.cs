@@ -91,40 +91,11 @@ namespace CineAPI.Controllers
 
             return Ok(new { Message = "Asientos seleccionados actualizados exitosamente." });
         }
-       [HttpPost("seleccionados")]
-public IActionResult ActualizarAsientos([FromBody] List<Asiento> seleccionados)
-{
-    if (seleccionados == null || !seleccionados.Any())
-    {
-        Console.WriteLine("Lista de asientos seleccionados vacía.");
-        return BadRequest(new { Message = "La lista de asientos seleccionados está vacía." });
-    }
-
-    Console.WriteLine("Recibiendo solicitud para actualizar asientos:");
-    foreach (var seleccionado in seleccionados)
-    {
-        Console.WriteLine($"Fila: {seleccionado.Fila}, Número: {seleccionado.Numero}, Estado: {seleccionado.Estado}");
-        var asiento = asientos.FirstOrDefault(a =>
-            a.Numero == seleccionado.Numero && a.Fila == seleccionado.Fila);
-
-        if (asiento != null && asiento.Estado == "Disponible")
-        {
-            asiento.Estado = "Ocupado";
-            Console.WriteLine($"Estado actualizado: Fila {asiento.Fila}, Número {asiento.Numero}, Nuevo Estado: {asiento.Estado}");
-        }
-    }
-
-    return Ok(new { Message = "Asientos actualizados exitosamente." });
-}
-
-
-
-
 
        private static void InicializarDatos()
 {
     asientos.Add(new Asiento(1, "A", "Disponible"));
-    asientos.Add(new Asiento(2, "A", "Ocupado"));
+    asientos.Add(new Asiento(2, "A", "Disponible"));
     asientos.Add(new Asiento(3, "A", "Disponible"));
     asientos.Add(new Asiento(4, "A", "Disponible"));
     asientos.Add(new Asiento(5, "A", "Disponible"));
@@ -132,14 +103,14 @@ public IActionResult ActualizarAsientos([FromBody] List<Asiento> seleccionados)
     asientos.Add(new Asiento(7, "A", "Disponible"));
     asientos.Add(new Asiento(8, "A", "Disponible"));
     asientos.Add(new Asiento(9, "A", "Disponible"));
-    asientos.Add(new Asiento(10, "A", "Ocupado"));
+    asientos.Add(new Asiento(10, "A", "Disponible"));
     asientos.Add(new Asiento(1, "B", "Disponible"));
-    asientos.Add(new Asiento(2, "B", "Ocupado"));
+    asientos.Add(new Asiento(2, "B", "Disponible"));
     asientos.Add(new Asiento(3, "B", "Disponible"));
     asientos.Add(new Asiento(4, "B", "Disponible"));
     asientos.Add(new Asiento(5, "B", "Disponible"));
     asientos.Add(new Asiento(6, "B", "Disponible"));
-    asientos.Add(new Asiento(7, "B", "Ocupado"));
+    asientos.Add(new Asiento(7, "B", "Disponible"));
     asientos.Add(new Asiento(8, "B", "Disponible"));
     asientos.Add(new Asiento(9, "B", "Disponible"));
     asientos.Add(new Asiento(10, "B", "Disponible"));
@@ -147,14 +118,14 @@ public IActionResult ActualizarAsientos([FromBody] List<Asiento> seleccionados)
     asientos.Add(new Asiento(2, "C", "Disponible"));
     asientos.Add(new Asiento(3, "C", "Disponible"));
     asientos.Add(new Asiento(4, "C", "Disponible"));
-    asientos.Add(new Asiento(5, "C", "Ocupado"));
+    asientos.Add(new Asiento(5, "C", "Disponible"));
     asientos.Add(new Asiento(6, "C", "Disponible"));
-    asientos.Add(new Asiento(7, "C", "Ocupado"));
+    asientos.Add(new Asiento(7, "C", "Disponible"));
     asientos.Add(new Asiento(8, "C", "Disponible"));
     asientos.Add(new Asiento(9, "C", "Disponible"));
     asientos.Add(new Asiento(10, "C", "Disponible"));
     asientos.Add(new Asiento(1, "D", "Disponible"));
-    asientos.Add(new Asiento(2, "D", "Ocupado"));
+    asientos.Add(new Asiento(2, "D", "Disponible"));
     asientos.Add(new Asiento(3, "D", "Disponible"));
     asientos.Add(new Asiento(4, "D", "Disponible"));
     asientos.Add(new Asiento(5, "D", "Disponible"));
@@ -191,10 +162,10 @@ public IActionResult ActualizarAsientos([FromBody] List<Asiento> seleccionados)
     asientos.Add(new Asiento(6, "G", "Disponible"));
     asientos.Add(new Asiento(7, "G", "Disponible"));
     asientos.Add(new Asiento(8, "G", "Disponible"));
-    asientos.Add(new Asiento(9, "G", "Ocupado"));
-    asientos.Add(new Asiento(10, "G", "Ocupado"));
-    asientos.Add(new Asiento(1, "H", "Ocupado"));
-    asientos.Add(new Asiento(2, "H", "Ocupado"));
+    asientos.Add(new Asiento(9, "G", "Disponible"));
+    asientos.Add(new Asiento(10, "G", "Disponible"));
+    asientos.Add(new Asiento(1, "H", "Disponible"));
+    asientos.Add(new Asiento(2, "H", "Disponible"));
     asientos.Add(new Asiento(3, "H", "Disponible"));
     asientos.Add(new Asiento(4, "H", "Disponible"));
     asientos.Add(new Asiento(5, "H", "Disponible"));
@@ -207,9 +178,9 @@ public IActionResult ActualizarAsientos([FromBody] List<Asiento> seleccionados)
     asientos.Add(new Asiento(2, "I", "Disponible"));
     asientos.Add(new Asiento(3, "I", "Disponible"));
     asientos.Add(new Asiento(4, "I", "Disponible"));
-    asientos.Add(new Asiento(5, "I", "Ocupado"));
-    asientos.Add(new Asiento(6, "I", "Ocupado"));
-    asientos.Add(new Asiento(7, "I", "Ocupado"));
+    asientos.Add(new Asiento(5, "I", "Disponible"));
+    asientos.Add(new Asiento(6, "I", "Disponible"));
+    asientos.Add(new Asiento(7, "I", "Disponible"));
     asientos.Add(new Asiento(8, "I", "Disponible"));
     asientos.Add(new Asiento(9, "I", "Disponible"));
     asientos.Add(new Asiento(10, "I", "Disponible"));

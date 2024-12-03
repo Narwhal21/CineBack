@@ -29,10 +29,10 @@ namespace CineAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Factura> CreateFactura(Factura factura)
+        public ActionResult<Factura> CreateFactura([FromBody] Factura factura)
         {
             // Log de los datos recibidos
-            Console.WriteLine($"Datos recibidos: Nombre={factura.Nombre}, Correo={factura.Correo}, Precio={factura.Precio}, Fecha={factura.Fecha}");
+            Console.WriteLine($"Datos recibidos: Nombre={factura.Nombre}, Correo={factura.Correo}, Precio={factura.Precio}, Fecha={factura.Fecha}, Asiento={factura.Asiento}");
 
             // Validaciones adicionales
             if (string.IsNullOrEmpty(factura.Nombre) || string.IsNullOrEmpty(factura.Correo))
@@ -46,7 +46,7 @@ namespace CineAPI.Controllers
             }
 
             // Asigna un número de pedido único
-            factura.AsignarNumeroPedido(Factura.NextNumeroPedido++);
+            factura.NumeroPedido = Factura.NextNumeroPedido++;
             facturas.Add(factura);
 
             return CreatedAtAction(nameof(GetFactura), new { numeroPedido = factura.NumeroPedido }, factura);
@@ -67,6 +67,7 @@ namespace CineAPI.Controllers
             factura.Telefono = updatedFactura.Telefono;
             factura.Fecha = updatedFactura.Fecha;
             factura.Precio = updatedFactura.Precio;
+            factura.Asiento = updatedFactura.Asiento;
 
             return NoContent();
         }
@@ -87,9 +88,9 @@ namespace CineAPI.Controllers
         // Método para inicializar datos
         public static void InicializarDatos()
         {
-            facturas.Add(new Factura("Juan", "juan.perez@example.com", "123456789", 100.50m, "2024-12-01"));
-            facturas.Add(new Factura("Ana", "ana.lopez@example.com", "987654321", 150.75m, "2024-12-02"));
-            facturas.Add(new Factura("Luis", "luis.martinez@example.com", "456789123", 200.00m, "2024-12-03"));
+            facturas.Add(new Factura("Juan", "juan.perez@example.com", "123456789", 100.50m, "2024-12-01", "B2"));
+            facturas.Add(new Factura("Ana", "ana.lopez@example.com", "987654321", 150.75m, "2024-12-02", "B4"));
+            facturas.Add(new Factura("Luis", "luis.martinez@example.com", "456789123", 200.00m, "2024-12-03", "B5"));
         }
     }
 }
