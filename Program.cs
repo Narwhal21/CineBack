@@ -24,6 +24,7 @@ PeliculaPrincipalController.InicializarDatos();
 EntradaController.InicializarDatos();
 SalaController.InicializarDatos();
 HorarioController.InicializarDatos();
+OpinionController.InicializarDatos();
 var app = builder.Build();
 
 app.UseSwagger();
